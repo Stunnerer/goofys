@@ -52,6 +52,10 @@ Users can also configure credentials via the
 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 or the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
 
+To identify the service making S3 requests, pass `--user-agent`, for example
+`goofys --user-agent my-service <bucket> <mountpoint>`. The value is added to
+the existing User-Agent; when omitted, the User-Agent is unchanged.
+
 To mount an S3 bucket on startup, make sure the credential is
 configured for `root`, and can add this to `/etc/fstab`:
 

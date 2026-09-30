@@ -124,9 +124,13 @@ func (s *S3Backend) newS3() {
 		s.setV2Signer(&s.S3.Handlers)
 	}
 	s.S3.Handlers.Sign.PushBack(addAcceptEncoding)
+	userAgent := request.MakeAddToUserAgentHandler("goofys", VersionNumber+"-"+VersionHash)
+	if service := strings.TrimSpace(s.flags.UserAgent); service != "" {
+		userAgent = request.MakeAddToUserAgentHandler("goofys", VersionNumber+"-"+VersionHash, service)
+	}
 	s.S3.Handlers.Build.PushFrontNamed(request.NamedHandler{
 		Name: "UserAgentHandler",
-		Fn:   request.MakeAddToUserAgentHandler("goofys", VersionNumber+"-"+VersionHash),
+		Fn:   userAgent,
 	})
 }
 

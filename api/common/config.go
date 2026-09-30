@@ -41,6 +41,7 @@ type FlagStorage struct {
 	// Common Backend Config
 	UseContentType bool
 	Endpoint       string
+	UserAgent      string
 
 	Backend interface{}
 

@@ -151,6 +151,11 @@ func NewApp() (app *cli.App) {
 			},
 
 			cli.StringFlag{
+				Name:  "user-agent",
+				Usage: "Service identifier to add to the S3 User-Agent header.",
+			},
+
+			cli.StringFlag{
 				Name:  "region",
 				Value: s3Default.Region,
 				Usage: "The region to connect to. Usually this is auto-detected." +
@@ -272,7 +277,7 @@ func NewApp() (app *cli.App) {
 
 	flagCategories = map[string]string{}
 
-	for _, f := range []string{"region", "sse", "sse-kms", "sse-c", "storage-class", "acl", "requester-pays"} {
+	for _, f := range []string{"region", "sse", "sse-kms", "sse-c", "storage-class", "acl", "requester-pays", "user-agent"} {
 		flagCategories[f] = "aws"
 	}
 
@@ -336,6 +341,7 @@ func PopulateFlags(c *cli.Context) (ret *FlagStorage) {
 
 		// Common Backend Config
 		Endpoint:       c.String("endpoint"),
+		UserAgent:      c.String("user-agent"),
 		UseContentType: c.Bool("use-content-type"),
 
 		// Debugging,
